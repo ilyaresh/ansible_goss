@@ -1,0 +1,20 @@
+---
+
+- name: Copy Goss to remote
+  hosts: "{{ splunk_group }}"
+  gather_facts: no
+  tasks:
+    - name: Download goss from Artifactory
+      get_url:
+        url: https://artifactory.my.company/generic-dev-local/goss
+        dest: /tmp/goss
+        username: myUser
+        password: MyPassword  
+
+    - name: Copy goss to /usr/local/bin/
+      shell: cp /tmp/goss /usr/local/bin/goss
+      become: yes
+
+    - name: Change goss permissions
+      shell: chmod 0777 /usr/local/bin/goss
+      become: yes

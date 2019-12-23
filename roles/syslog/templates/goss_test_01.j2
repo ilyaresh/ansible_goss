@@ -1,0 +1,12 @@
+command:
+{% for feed in port %}
+{% for protocol, portnum in port[feed].iteritems() %}
+  loggen_{{ protocol }}_{{ portnum }}:
+    exit-status: 0
+    exec: "loggen --{% if protocol == "tcp" %}stream{% else %}dgram{% endif %} 127.0.0.1 {{ portnum }} --number 10 2>&1"
+    stdout:
+    - "average rate"
+    timeout: 10000
+    skip: false
+{% endfor %}
+{% endfor %}

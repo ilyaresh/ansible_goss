@@ -1,0 +1,23 @@
+all:
+    children:
+        syslog:
+            hosts:
+                dev001:
+                dev002:
+        hf:
+            hosts:
+                dev003:
+                dev004:
+        ds:
+            hosts:
+                dev005:
+        uf:
+            hosts:
+                dev001:
+                dev002:
+                dev003:
+                dev004:
+                dev005:
+                dev006:
+    vars:
+        env: dev

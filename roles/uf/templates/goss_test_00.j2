@@ -1,0 +1,9 @@
+service:
+  splunk:
+    enabled: true
+    running: true
+port:
+  tcp:22:
+    listening: true
+  tcp:{{ splunk_uf_app_port }}:
+    listening: true

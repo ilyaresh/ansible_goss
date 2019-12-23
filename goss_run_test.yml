@@ -1,0 +1,38 @@
+---
+
+- name: run goss test on remote
+  hosts: "{{ splunk_group }}"
+  roles:
+    - syslog
+    - hf
+    - uf
+  gather_facts: no
+  tasks:
+    - name: save goss files list
+      set_fact:
+        goss_files : "{{ lookup('fileglob', '../roles/{{splunk_group}}/templates/*.j2', wantlist=True) | sort }}"
+    - name: print
+      debug:
+        msg: 
+          - "{{ goss_files }}"
+
+    - name: Copy goss test from template to remote
+      template:
+        src: "{{ item }}"
+        dest: /tmp/{{ item | basename | regex_replace('\.j2','.yml') }}
+        mode: '0644'
+      with_items:
+        - "{{ goss_files }}"
+
+    - name: Run goss
+      command: /usr/local/bin/goss --gossfile /tmp/"{{ item | basename | regex_replace('\.j2','.yml') }}" validate --format tap
+      with_items:
+        - "{{ goss_files }}"
+      ignore_errors: yes
+      become: yes
+      register: goss_result
+
+    - name: Pritn Goss Results
+      debug:
+        msg: "{{ item.stdout_lines }}" 
+      with_items: "{{ goss_result.results }}"

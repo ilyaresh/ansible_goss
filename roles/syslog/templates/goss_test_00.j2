@@ -1,0 +1,27 @@
+service:
+  rsyslog:
+    enabled: false
+    running: false
+  syslog-ng:
+    enabled: true
+    running: true
+
+port:
+{% for feed in port %}
+{% for protocol, portnum in port[feed].iteritems() %}
+  {{ protocol }}:{{ portnum }}:
+    listening: true
+{% endfor %}
+{% endfor %}
+
+file:
+  /etc/syslog-ng:
+    exists: true
+    filetype: directory
+  /var/run/syslogd.pid:
+    exists: true
+    filetype: file
+  /syslogdata:
+    exists: true
+    filetype: directory
+

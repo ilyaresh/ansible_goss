@@ -1,0 +1,15 @@
+splunk_uf_app_port: 8089
+
+domain: "cloud.{{ env }}.my.conpany"
+
+port:
+  dns:
+    tcp: 7001
+    udp: 7101
+  dual:
+    tcp: 8001
+    udp: 8101
+  relay:
+    tcp: 9001
+    udp: 9101
+

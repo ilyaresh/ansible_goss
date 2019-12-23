@@ -1,0 +1,23 @@
+all:
+    children:
+        syslog:
+            hosts:
+                sit001:
+                sit002:
+        hf:
+            hosts:
+                sit003:
+                sit004:
+        ds:
+            hosts:
+                sit005:
+        uf:
+            hosts:
+                sit001:
+                sit002:
+                sit003:
+                sit004:
+                sit005:
+                sit006:
+    vars:
+        env: test

@@ -1,0 +1,6 @@
+file:
+{% for feed in port %}
+  /syslogdata/{{ feed }}/{{ inventory_hostname }}.{{ domain }}/logs/{{ lookup('pipe','date +%Y-%m-%d') }}/generic/generic/localhost/localhost/{{ lookup('pipe','date +%Y-%m-%d-%H_auth.log') }}:
+    exists: true
+    filetype: file
+{% endfor %}
