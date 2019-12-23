@@ -32,7 +32,7 @@
       become: yes
       register: goss_result
 
-    - name: Pritn Goss Results
+    - name: Print goss Results
       debug:
         msg: "{{ item.stdout_lines }}" 
       with_items: "{{ goss_result.results }}"
