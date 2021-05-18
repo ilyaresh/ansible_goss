@@ -1,4 +1,3 @@
-# oc1_syslog
 ## Deploy goss to severs
 to be done only once per environment, replace `dev` with either `sit` or `prd` as applicable\
 `ansible-playbook -i inventory/dev goss_deploy.yml -e "splunk_group=*" -k -K`
